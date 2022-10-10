@@ -147,31 +147,33 @@ void Sts3215Port::clean(void)
  * STS3215通信ポート 現在値読み込み処理
  * @brief STS3215へ現在値を要求する
  * @param servo：サーボデータ
- * @note ControlTypeで読みだす値を変える
  */
 void Sts3215Port::readCurrent(Sts3215Servo &servo)
 {
-  uint8_t data[64];
-  uint8_t length=0;
-  uint8_t sum=0;
-  uint8_t read_length=0;
+  uint8_t data[8];
+  uint8_t err;
+  int comm_result;
 
-  data[length++] = 0x07;
-  data[length++] = enCmdTypes_Read;
-  data[length++] = enProtocolOptions_ClearStat;
-  data[length++] = servo.get_id();
-  data[length++] = ADDR_SERVO_CURRENT_ALL;
-  data[length++] = SIZE_SERVO_CURRENT_ALL;
-  data[length++] = calc_sum( data, length );
-  if( write_port(&data[0], length) ){
-    uint8_t buffer[64];
-    read_length = (4+1+SIZE_SERVO_CURRENT_ALL); // 制御データ+ID+データ
-    if( read_port(buffer,read_length,100) ){
-      // 読んだ値を解析し格納する
-      servo.parse_current_all(&buffer[4],SIZE_SERVO_CURRENT_ALL);
-    }
+  comm_result = 
+    packetHandler_->readTxRx(portHandler_,
+			     servo.get_id(),
+			     ADDR_SERVO_CURRENT_ALL,
+			     SIZE_SERVO_CURRENT_ALL,
+			     data,
+			     &err
+			     );
+
+  if (comm_result != COMM_SUCCESS) {
+    ROS_ERROR("read failed: %s", packetHandler_->getTxRxResult(comm_result));
+    return;
   }
-
+  else if (err != 0) {
+    ROS_ERROR("get packet error: %s", packetHandler_->getRxPacketError(err));
+    return;
+  }
+  
+  servo.parse_current_all(data,SIZE_SERVO_CURRENT_ALL);
+  
   return;
 }
 

@@ -5,7 +5,7 @@
 #include "sts3215_design.hpp"
 
 #define ADDR_SERVO_CURRENT_ALL  (ADDR_PRESENT_POSITION)
-#define SIZE_SERVO_CURRENT_ALL  (0x12)
+#define SIZE_SERVO_CURRENT_ALL  (0x08) // 0x38-0x3F
 
 /**
  * STS3215サーボクラス

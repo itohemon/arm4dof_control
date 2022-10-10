@@ -9,19 +9,19 @@
  */
 Sts3215Servo::Sts3215Servo(uint8_t id, EN_OPTIONS control_type)
 {
-    id_             = id;
-    run_state_      = enOptions_TorqueDisable;
+  id_             = id;
+  run_state_      = enOptions_TorqueDisable;
 
-    switch(control_type){
-    case enOptions_ControlPosition: // 位置指令
-    case enOptions_ControlVelocity: // 速度指令
-        control_type_   = control_type;
-        break;
+  switch(control_type){
+  case enOptions_ControlPosition: // 位置指令
+  case enOptions_ControlVelocity: // 速度指令
+    control_type_   = control_type;
+    break;
     // case enOptions_ControlTorque:   // トルク指令
-    default:
-        control_type_   = enOptions_ControlPosition;
-        break;
-    }
+  default:
+    control_type_   = enOptions_ControlPosition;
+    break;
+  }
 }
 
 /**
@@ -41,7 +41,7 @@ Sts3215Servo::~Sts3215Servo()
  */
 uint8_t Sts3215Servo::get_id(void)
 {
-    return id_;
+  return id_;
 }
 
 /**
@@ -52,7 +52,7 @@ uint8_t Sts3215Servo::get_id(void)
  */
 EN_OPTIONS Sts3215Servo::get_run_state(void)
 {
-    return run_state_;
+  return run_state_;
 }
 
 /**
@@ -63,7 +63,7 @@ EN_OPTIONS Sts3215Servo::get_run_state(void)
  */
 EN_OPTIONS Sts3215Servo::get_control_type(void)
 {
-    return control_type_;
+  return control_type_;
 }
 
 /* Private */
@@ -74,8 +74,8 @@ EN_OPTIONS Sts3215Servo::get_control_type(void)
  */
 void Sts3215Servo::set_run_state(EN_OPTIONS state)
 {
-    run_state_ = state;
-    return;
+  run_state_ = state;
+  return;
 }
 
 /**
@@ -85,8 +85,8 @@ void Sts3215Servo::set_run_state(EN_OPTIONS state)
  */
 void Sts3215Servo::set_control_type(EN_OPTIONS control_type)
 {
-    control_type_ = control_type;
-    return;
+  control_type_ = control_type;
+  return;
 }
 
 /**
@@ -96,8 +96,8 @@ void Sts3215Servo::set_control_type(EN_OPTIONS control_type)
  */
 void Sts3215Servo::set_sys_error(EN_SYS_ERRORS error)
 {
-    sys_error_ = error;
-    return;
+  sys_error_ = error;
+  return;
 }
 
 /**
@@ -107,8 +107,8 @@ void Sts3215Servo::set_sys_error(EN_SYS_ERRORS error)
  */
 void Sts3215Servo::set_motor_error(EN_MOTOR_ERRORS error)
 {
-    motor_error_ = error;
-    return;
+  motor_error_ = error;
+  return;
 }
 
 /**
@@ -118,8 +118,8 @@ void Sts3215Servo::set_motor_error(EN_MOTOR_ERRORS error)
  */
 void Sts3215Servo::set_uart_error(EN_UART_ERRORS error)
 {
-    uart_error_ = error;
-    return;
+  uart_error_ = error;
+  return;
 }
 
 /**
@@ -129,8 +129,8 @@ void Sts3215Servo::set_uart_error(EN_UART_ERRORS error)
  */
 void Sts3215Servo::set_cmd_error(EN_COMMAND_ERRORS error)
 {
-    cmd_error_ = error;
-    return;
+  cmd_error_ = error;
+  return;
 }
 
 /**
@@ -140,8 +140,8 @@ void Sts3215Servo::set_cmd_error(EN_COMMAND_ERRORS error)
  */
 void Sts3215Servo::set_current_pos( int16_t value )
 {
-    current_pos_ = value;
-    return;
+  current_pos_ = value;
+  return;
 }
 
 /**
@@ -151,8 +151,8 @@ void Sts3215Servo::set_current_pos( int16_t value )
  */
 void Sts3215Servo::set_current_vel( int16_t value )
 {
-    current_vel_ = value;
-    return;
+  current_vel_ = value;
+  return;
 }
 
 /**
@@ -171,25 +171,21 @@ void Sts3215Servo::set_current_vel( int16_t value )
  * @brief STS3215サーボから読みだした現在値のバイト列を解析し格納する
  * @param data：解析する受信データ先頭アドレス
  * @param length：データ長
- * @note 現在トルク値は取得できないので指示値を現在値として扱う
  */
 void Sts3215Servo::parse_current_all( uint8_t* data, uint8_t length )
 {
-    int16_t value;
-    uint8_t index;
+  int16_t value;
+  uint8_t index;
 
-    // if( length==SIZE_SERVO_CURRENT_ALL ){
-    //     index = 0;
-    //     value = static_cast<int16_t>( (uint16_t)(data[index+1])<<8 | data[index]&0xFF );
-    //     set_current_pos(value);
-    //     index = (ADDR_SERVO_CURRENT_VEROCITY - ADDR_SERVO_CURRENT_ALL);
-    //     value = static_cast<int16_t>( (uint16_t)(data[index+1])<<8 | data[index]&0xFF );
-    //     set_current_vel(value);
-    //     index = (ADDR_SERVO_DESIRED_TORQUE - ADDR_SERVO_CURRENT_ALL);
-    //     value = static_cast<int16_t>( (uint16_t)(data[index+1])<<8 | data[index]&0xFF );
-    //     set_current_trq(value);
-    // }
-    return;
+  if( length==SIZE_SERVO_CURRENT_ALL ){
+    index = 0;
+    value = static_cast<int16_t>( (uint16_t)(data[index+1])<<8 | data[index]&0xFF );
+    set_current_pos(value);
+    index = (ADDR_PRESENT_VELOCITY - ADDR_SERVO_CURRENT_ALL);
+    value = static_cast<int16_t>( (uint16_t)(data[index+1])<<8 | data[index]&0xFF );
+    set_current_vel(value);
+  }
+  return;
 }
 
 /**
@@ -200,34 +196,34 @@ void Sts3215Servo::parse_current_all( uint8_t* data, uint8_t length )
  */
 void Sts3215Servo::set_desired( int16_t value )
 {
-    int32_t max, min;
+  int32_t max, min;
 
-    switch( control_type_ ){
-    case enOptions_ControlPosition: // 位置指令の場合
-        max = MAX_POSITION;
-        min = MIN_POSITION;
-        break;
-    case enOptions_ControlVelocity: // 速度指令の場合
-        max = MAX_VELOCITY;
-        min = MIN_VELOCITY;
-        break;
+  switch( control_type_ ){
+  case enOptions_ControlPosition: // 位置指令の場合
+    max = MAX_POSITION;
+    min = MIN_POSITION;
+    break;
+  case enOptions_ControlVelocity: // 速度指令の場合
+    max = MAX_VELOCITY;
+    min = MIN_VELOCITY;
+    break;
     // case enOptions_ControlTorque:   // トルク指令の場合
     //     max = MAX_TORQUE;
     //     min = MIN_TORQUE;
     //     break;
-    default:                        // その他の場合
-        max = MAX_UNDEFINED;
-        min = MIN_UNDEFINED;
-        break;
-    }
-    if( value > max ){
-        value = static_cast<int16_t>(max);
-    }
-    if( value < min ){
-        value = static_cast<int16_t>(min);
-    }
-    desired_ = value;
-    return;
+  default:                        // その他の場合
+    max = MAX_UNDEFINED;
+    min = MIN_UNDEFINED;
+    break;
+  }
+  if( value > max ){
+    value = static_cast<int16_t>(max);
+  }
+  if( value < min ){
+    value = static_cast<int16_t>(min);
+  }
+  desired_ = value;
+  return;
 }
 
 /**
@@ -238,7 +234,7 @@ void Sts3215Servo::set_desired( int16_t value )
  */
 int16_t Sts3215Servo::get_current_pos( void )
 {
-    return current_pos_;
+  return current_pos_;
 }
 
 /**
@@ -249,7 +245,7 @@ int16_t Sts3215Servo::get_current_pos( void )
  */
 int16_t Sts3215Servo::get_current_vel( void )
 {
-    return current_vel_;
+  return current_vel_;
 }
 
 /**
@@ -271,5 +267,5 @@ int16_t Sts3215Servo::get_current_vel( void )
  */
 int16_t Sts3215Servo::get_desired( void )
 {
-    return desired_;
+  return desired_;
 }
