@@ -47,9 +47,9 @@ int main(int argc, char* argv[])
       case enSts3215JointConfigType_Velocity:
         reg_type = enSts3215JointType_Velocity;
         break;
-      case enSts3215JointConfigType_Effort:
-        reg_type = enSts3215JointType_Effort;
-        break;
+      // case enSts3215JointConfigType_Effort:
+      //   reg_type = enSts3215JointType_Effort;
+      //   break;
       case enSts3215JointConfigType_Position:
       default:
         reg_type = enSts3215JointType_Position;

@@ -14,15 +14,16 @@
 
 #define     TYPE_POSITION       ("Position")
 #define     TYPE_VELOCITY       ("Velocity")
-#define     TYPE_EFFORT         ("Effort")
+//#define     TYPE_EFFORT         ("Effort")
 
 /**
  * STS3215ジョイントタイプ列挙型
  */
 typedef enum {
     enSts3215JointConfigType_Position   = 0,
-    enSts3215JointConfigType_Velocity   = 1,
-    enSts3215JointConfigType_Effort     = 2
+    //enSts3215JointConfigType_Velocity   = 1,
+    enSts3215JointConfigType_Velocity   = 1
+    //enSts3215JointConfigType_Effort     = 2
 } enSts3215JointConfigType;
 
 /**

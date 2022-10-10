@@ -181,8 +181,8 @@ bool Sts3215Config::load_param( void )
         itr->type_ = enSts3215JointConfigType_Position;
       }else if(load_type == "Velocity"){
         itr->type_ = enSts3215JointConfigType_Velocity;
-      }else if(load_type == "Effort"){
-        itr->type_ = enSts3215JointConfigType_Effort;
+      // }else if(load_type == "Effort"){
+      //   itr->type_ = enSts3215JointConfigType_Effort;
       }else{
         ROS_ERROR("Undefined type %s", load_type.c_str());
         result = false;

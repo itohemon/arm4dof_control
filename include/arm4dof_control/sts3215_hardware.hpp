@@ -41,7 +41,7 @@ private:
   hardware_interface::JointStateInterface     stat_if_;   // ステータスインタフェース
   hardware_interface::PositionJointInterface  pos_if_;    // 位置指令インタフェース
   hardware_interface::VelocityJointInterface  vel_if_;    // 速度指令インタフェース
-  hardware_interface::EffortJointInterface    eff_if_;    // トルク指令インタフェース
+  //  hardware_interface::EffortJointInterface    eff_if_;    // トルク指令インタフェース
 };
 
 #endif  // STS3215_HARDWARE_HPP_

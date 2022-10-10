@@ -193,7 +193,7 @@ void Sts3215Port::writeDesired(Sts3215Servo &servo)
     case enOptions_ControlVelocity:     // 速度指令
       address = ADDR_GOAL_VELOCITY;
       break;
-    case enOptions_ControlTorque:       // トルク指令
+    // case enOptions_ControlTorque:       // トルク指令
       // address = ADDR_SERVO_DESIRED_TORQUE;
       // break;
     case enOptions_ControlPosition:     // 位置指令

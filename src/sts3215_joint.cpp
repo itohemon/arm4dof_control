@@ -11,18 +11,18 @@
  * @param reverse：回転方向の反転設定
  */
 Sts3215Joint::Sts3215Joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse )
- : Sts3215Servo( id, conv_type(type) )
+  : Sts3215Servo( id, conv_type(type) )
 {
-    type_   = type;
-    if( name.length() == 0 ){
-        name = std::string("joint") + std::to_string(id);
-    }
-    name_   = name;
-    reverse_= reverse;
-    pos_    = 0.0;
-    vel_    = 0.0;
-    eff_    = 0.0;
-    cmd_    = 0.0;
+  type_   = type;
+  if( name.length() == 0 ){
+    name = std::string("joint") + std::to_string(id);
+  }
+  name_   = name;
+  reverse_= reverse;
+  pos_    = 0.0;
+  vel_    = 0.0;
+  eff_    = 0.0;
+  cmd_    = 0.0;
 }
 
 /**
@@ -42,21 +42,23 @@ Sts3215Joint::~Sts3215Joint()
  */
 EN_OPTIONS Sts3215Joint::conv_type( enSts3215JointType type )
 {
-    EN_OPTIONS result;
+  EN_OPTIONS result;
 
-    switch( type ){
-    case enSts3215JointType_Position:
-        result = enOptions_ControlPosition;
-        break;
-    case enSts3215JointType_Velocity:
-    case enSts3215JointType_Effort:
-        throw "Unsupported joint type\n";
-        break;
-    default:
-        throw "Illegal joint type\n";
-        break;
-    }
-    return result;
+  switch( type ){
+  case enSts3215JointType_Position:
+    result = enOptions_ControlPosition;
+    break;
+  case enSts3215JointType_Velocity:
+    result = enOptions_ControlVelocity;
+    break;
+  // case enSts3215JointType_Effort:
+  //   throw "Unsupported joint type\n";
+  //   break;
+  default:
+    throw "Illegal joint type\n";
+    break;
+  }
+  return result;
 }
 
 /**
@@ -66,7 +68,7 @@ EN_OPTIONS Sts3215Joint::conv_type( enSts3215JointType type )
  */
 void Sts3215Joint::set_pos(double value)
 {
-    pos_ = reverse_?-value:value;
+  pos_ = reverse_?-value:value;
 }
 
 /**
@@ -76,7 +78,7 @@ void Sts3215Joint::set_pos(double value)
  */
 void Sts3215Joint::set_vel(double value)
 {
-    vel_ = reverse_?-value:value;
+  vel_ = reverse_?-value:value;
 }
 
 /**
@@ -86,7 +88,7 @@ void Sts3215Joint::set_vel(double value)
  */
 void Sts3215Joint::set_eff(double value)
 {
-    eff_ = reverse_?-value:value;
+  eff_ = reverse_?-value:value;
 }
 
 /**
@@ -97,7 +99,7 @@ void Sts3215Joint::set_eff(double value)
  */
 enSts3215JointType Sts3215Joint::get_type(void)
 {
-    return type_;
+  return type_;
 }
 
 /**
@@ -108,7 +110,7 @@ enSts3215JointType Sts3215Joint::get_type(void)
  */
 std::string Sts3215Joint::get_name(void)
 {
-    return name_;
+  return name_;
 }
 
 /**
@@ -119,7 +121,7 @@ std::string Sts3215Joint::get_name(void)
  */
 double Sts3215Joint::get_pos(void)
 {
-    return pos_;
+  return pos_;
 }
 
 /**
@@ -130,7 +132,7 @@ double Sts3215Joint::get_pos(void)
  */
 double Sts3215Joint::get_vel(void)
 {
-    return vel_;
+  return vel_;
 }
 
 /**
@@ -141,7 +143,7 @@ double Sts3215Joint::get_vel(void)
  */
 double Sts3215Joint::get_eff(void)
 {
-    return eff_;
+  return eff_;
 }
 
 /**
@@ -152,7 +154,7 @@ double Sts3215Joint::get_eff(void)
  */
 double Sts3215Joint::get_cmd(void)
 {
-    return reverse_?-cmd_:cmd_;
+  return reverse_?-cmd_:cmd_;
 }
 
 /**
@@ -163,7 +165,7 @@ double Sts3215Joint::get_cmd(void)
  */
 double* Sts3215Joint::get_pos_addr(void)
 {
-    return &pos_;
+  return &pos_;
 }
 
 /**
@@ -174,7 +176,7 @@ double* Sts3215Joint::get_pos_addr(void)
  */
 double* Sts3215Joint::get_vel_addr(void)
 {
-    return &vel_;
+  return &vel_;
 }
 
 /**
@@ -185,7 +187,7 @@ double* Sts3215Joint::get_vel_addr(void)
  */
 double* Sts3215Joint::get_eff_addr(void)
 {
-    return &eff_;
+  return &eff_;
 }
 
 /**
@@ -196,5 +198,5 @@ double* Sts3215Joint::get_eff_addr(void)
  */
 double* Sts3215Joint::get_cmd_addr(void)
 {
-    return &cmd_;
+  return &cmd_;
 }

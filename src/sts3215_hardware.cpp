@@ -61,7 +61,7 @@ bool Sts3215Hardware::regist_joint( uint8_t id, enSts3215JointType type, std::st
 
     joint_itr->set_pos( 0.0 );
     joint_itr->set_vel( 0.0 );
-    joint_itr->set_eff( 0.0 );
+    // joint_itr->set_eff( 0.0 );
   }
   return result;
 }
@@ -88,15 +88,15 @@ void Sts3215Hardware::regist_interface(void)
       case enSts3215JointType_Velocity:
         vel_if_.registerHandle( joint_handle );
         break;
-      case enSts3215JointType_Effort:
-        eff_if_.registerHandle( joint_handle );
-        break;
+      // case enSts3215JointType_Effort:
+      //   eff_if_.registerHandle( joint_handle );
+      //   break;
     }
   }
   registerInterface( &stat_if_ );
   registerInterface( &pos_if_ );
   registerInterface( &vel_if_ );
-  registerInterface( &eff_if_ );
+  // registerInterface( &eff_if_ );
 }
 
 /**
@@ -111,7 +111,7 @@ void Sts3215Hardware::update( void )
     port_.readCurrent(*ritr);
     ritr->set_pos( DEG2RAD(ritr->get_current_pos() / 100.0) );
     ritr->set_vel( DEG2RAD(ritr->get_current_vel() / 100.0) );
-    ritr->set_eff( ritr->get_current_trq() / 1000.0 );
+    // ritr->set_eff( ritr->get_current_trq() / 1000.0 );
   }
 
   // Update
@@ -128,9 +128,9 @@ void Sts3215Hardware::update( void )
       case enSts3215JointType_Velocity:
         desired = static_cast<int16_t>(RAD2DEG(witr->get_cmd()) * 100.0); // rad->deg
         break;
-      case enSts3215JointType_Effort:
-        desired = static_cast<int16_t>(witr->get_cmd() * 1000.0);// Nm->mNm
-        break;
+      // case enSts3215JointType_Effort:
+      //   desired = static_cast<int16_t>(witr->get_cmd() * 1000.0);// Nm->mNm
+      //   break;
     }
     witr->set_desired( desired );
     port_.writeDesired(*witr);

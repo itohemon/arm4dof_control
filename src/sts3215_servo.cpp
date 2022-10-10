@@ -14,10 +14,10 @@ Sts3215Servo::Sts3215Servo(uint8_t id, EN_OPTIONS control_type)
 
     switch(control_type){
     case enOptions_ControlPosition: // 位置指令
+    case enOptions_ControlVelocity: // 速度指令
         control_type_   = control_type;
         break;
-    case enOptions_ControlVelocity: // 速度指令
-    case enOptions_ControlTorque:   // トルク指令
+    // case enOptions_ControlTorque:   // トルク指令
     default:
         control_type_   = enOptions_ControlPosition;
         break;
@@ -160,11 +160,11 @@ void Sts3215Servo::set_current_vel( int16_t value )
  * @brief STS3215サーボから読みだした現在トルクを格納する
  * @param value：トルク値[1000倍Nm]
  */
-void Sts3215Servo::set_current_trq( int16_t value )
-{
-    current_trq_ = value;
-    return;
-}
+// void Sts3215Servo::set_current_trq( int16_t value )
+// {
+//     current_trq_ = value;
+//     return;
+// }
 
 /**
  * STS3215サーボ 現在値パース処理
@@ -211,10 +211,10 @@ void Sts3215Servo::set_desired( int16_t value )
         max = MAX_VELOCITY;
         min = MIN_VELOCITY;
         break;
-    case enOptions_ControlTorque:   // トルク指令の場合
-        max = MAX_TORQUE;
-        min = MIN_TORQUE;
-        break;
+    // case enOptions_ControlTorque:   // トルク指令の場合
+    //     max = MAX_TORQUE;
+    //     min = MIN_TORQUE;
+    //     break;
     default:                        // その他の場合
         max = MAX_UNDEFINED;
         min = MIN_UNDEFINED;
@@ -258,10 +258,10 @@ int16_t Sts3215Servo::get_current_vel( void )
  * @param なし
  * @return 位置値[1000倍Nm]
  */
-int16_t Sts3215Servo::get_current_trq( void )
-{
-    return current_trq_;
-}
+// int16_t Sts3215Servo::get_current_trq( void )
+// {
+//     return current_trq_;
+// }
 
 /**
  * STS3215サーボ 目標値取得処理
