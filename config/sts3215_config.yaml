@@ -1,0 +1,13 @@
+sts3215_config:
+  port: "/dev/ttyUSB0"
+  baudrate: 1000000
+  joints:
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+  joint1: {id: 1, type: "Position", reverse: false }
+  joint2: {id: 2, type: "Position", reverse: false }
+  joint3: {id: 3, type: "Position", reverse: false }
+  joint4: {id: 4, type: "Position", reverse: false }
+  

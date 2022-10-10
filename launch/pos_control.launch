@@ -1,0 +1,26 @@
+<launch>
+  <arg name="use_gazebo" default="false"/>
+  <arg name="use_rviz" default="false"/>
+  <arg name="tty_port" default="/dev/ttyUSB0"/>
+  <group ns="sts3215">
+    <rosparam file="$(find arm4dof_control)/config/control.yaml" command="load"/>
+
+    <rosparam file="$(find arm4dof_control)/config/sts3215_config.yaml" command="load"/>
+    <param name="sts3215_config/port" value="$(arg tty_port)"/>
+
+    <param name="robot_description" type="str" textfile="$(find arm4dof_description)/urdf/arm4dof.urdf"/>
+
+    <node name="controller_manager"
+        pkg="controller_manager"
+        type="spawner" respawn="false"
+        output="screen"
+        args="joint_state_control
+              pos_traj_control"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" respawn="false"/>
+
+    <rosparam file="$(find arm4dof_control)/config/gazebo_ros_control.yaml" command="load" if="$(arg use_gazebo)" />
+    <node name="arm4dof_control" pkg="arm4dof_control" type="arm4dof_control" output="screen" respawn="false" unless="$(arg use_gazebo)" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find arm4dof_control)/config/display.rviz" if="$(arg use_rviz)"/>
+  </group>
+</launch>

@@ -3,6 +3,19 @@
 
 #include <ros/ros.h>
 
+/* 定数・マクロ定義 */
+#define     KEY_STS3215_CONFIG  ("sts3215_config")
+#define     KEY_PORTNAME        ("/port")
+#define     KEY_BAUDRATE        ("/baudrate")
+#define     KEY_JOINTS          ("/joints")
+#define     KEY_PARAM_ID        ("/id")
+#define     KEY_PARAM_TYPE      ("/type")
+#define     KEY_PARAM_REVERSE   ("/reverse")
+
+#define     TYPE_POSITION       ("Position")
+#define     TYPE_VELOCITY       ("Velocity")
+#define     TYPE_EFFORT         ("Effort")
+
 /**
  * STS3215ジョイントタイプ列挙型
  */
