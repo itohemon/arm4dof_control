@@ -1,8 +1,8 @@
 #include <signal.h>
 #include <stdint.h>
 
-#include <sts3215_hardware.hpp>
-#include <sts3215_config.hpp>
+#include <arm4dof_control/sts3215_hardware.hpp>
+#include <arm4dof_control/sts3215_config.hpp>
 
 #define UPDATE_RATE_HZ (250)
 #define STS3215_BAUDRATE (100000)
@@ -62,10 +62,8 @@ int main(int argc, char* argv[])
   sts3215.regist_interface();
   // sts3215.reset();
 
-  /*    
   //トルクOn
   sts3215.torque_on();
-  */
     
   // spin開始
   ros::AsyncSpinner spinner(4);
@@ -81,7 +79,7 @@ int main(int argc, char* argv[])
   // 終了処理
   spinner.stop();
   ros::Duration(1).sleep();
-  //sts3215.torque_free();
+  sts3215.torque_free();
 
   return 0;
 }

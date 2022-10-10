@@ -1,4 +1,4 @@
-#include "sts3215_hardware.hpp"
+#include "arm4dof_control/sts3215_hardware.hpp"
 
 #define DEG2RAD(deg)    ((deg)*(M_PI/180.0))
 #define RAD2DEG(rad)    ((rad)*(180.0/M_PI))
@@ -165,7 +165,7 @@ void Sts3215Hardware::torque_free(void)
  */
 void Sts3215Hardware::set_torque(bool torque)
 {
-  EN_OPTIONS value = torque?enOptions_RunNormal:enOptions_RunFree;
+  EN_OPTIONS value = torque?enOptions_TorqueEnable:enOptions_TorqueDisable;
   for(std::vector<Sts3215Joint>::iterator itr=joint_.begin() ; itr!=joint_.end() ; ++itr){
     itr->set_run_state( value );
     port_.writeRunMode(*itr);

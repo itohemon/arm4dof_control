@@ -31,4 +31,3 @@ add_executable(arm4dof_control
 target_link_libraries(arm4dof_control
   ${catkin_LIBRARIES}
   )
-

@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <cstring>
-#include "sts3215_joint.hpp"
+#include "arm4dof_control/sts3215_joint.hpp"
 
 /**
  * STS3215ジョイント コンストラクタ

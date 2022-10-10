@@ -1,7 +1,10 @@
 #include <errno.h>
-#include "sts3215_design.hpp"
-#include "sts3215_port.hpp"
-#include "sts3215_servo.hpp"
+
+#include <ros/ros.h>
+
+#include "arm4dof_control/sts3215_design.hpp"
+#include "arm4dof_control/sts3215_port.hpp"
+#include "arm4dof_control/sts3215_servo.hpp"
 
 /**
  * STS3215通信ポート コンストラクタ
@@ -218,24 +221,21 @@ void Sts3215Port::writeDesired(Sts3215Servo &servo)
 
 void Sts3215Port::writeRunMode(Sts3215Servo &servo)
 {
-  uint8_t data[64];
-  uint8_t length=0;
-  uint8_t sum=0;
+  uint8_t err = 0;
+  int comm_result;
+  
+  comm_result = 
+    packetHandler_->write1ByteTxRx(portHandler_,
+				   servo.get_id(),
+				   ADDR_TORQUE_ENABLE,
+				   servo.get_run_state(),
+				   &err);
 
-  // data[length++] = 0x08;
-  // data[length++] = enCmdTypes_Write;
-  // data[length++] = enProtocolOptions_ClearStat;
-
-  // data[length++] = servo.get_id();
-  // data[length++] = static_cast<uint8_t>(servo.get_control_type())
-  //   | static_cast<uint8_t>(servo.get_run_state());
-  // data[length++] = ADDR_SERVO_SERVO_MODE;
-  // data[length++] = 1;
-  // data[length++] = calc_sum( data, length );
-  // if( write_port(&data[0], length) ){
-  //   uint8_t buffer[64];
-  //   read_port(buffer,5,100);
-  // }
+  if (comm_result != COMM_SUCCESS) {
+    ROS_ERROR("id : %d, Failed to change torque change(%d)", servo.get_id(), servo.get_run_state());
+  } else {
+    ROS_ERROR("id : %d, Succeed to change torque change(%d)", servo.get_id(), servo.get_run_state());
+  }
 
   return;
 }

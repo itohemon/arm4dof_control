@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "sts3215_servo.hpp"
+#include "arm4dof_control/sts3215_servo.hpp"
 
 /**
  * STS3215サーボ コンストラクタ
@@ -10,7 +10,7 @@
 Sts3215Servo::Sts3215Servo(uint8_t id, EN_OPTIONS control_type)
 {
     id_             = id;
-    run_state_      = enOptions_RunFree;
+    run_state_      = enOptions_TorqueDisable;
 
     switch(control_type){
     case enOptions_ControlPosition: // 位置指令

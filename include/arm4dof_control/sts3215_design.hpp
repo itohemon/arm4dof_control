@@ -116,9 +116,8 @@
  * 動作モード列挙型
  */
 typedef enum {
-    enOptions_RunNormal         = 0x00,
-    enOptions_RunFree           = 0x02,
-    enOptions_RunHold           = 0x03,
+  enOptions_TorqueDisable = 0x00,
+  enOptions_TorqueEnable  = 0x01,
   enOptions_ControlPosition = 0x00,
   enOptions_ControlVelocity = 0x01,
     enOptions_ControlTorque     = 0x08,

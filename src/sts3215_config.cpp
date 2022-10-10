@@ -1,4 +1,4 @@
-#include "sts3215_config.hpp"
+#include "arm4dof_control/sts3215_config.hpp"
 
 /**
  * STS3215設定 コンストラクタ
