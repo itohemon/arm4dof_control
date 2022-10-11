@@ -30,11 +30,6 @@ public:
   ~Sts3215Port();
   bool is_init(void);
 
-  void load(Sts3215Servo &servo);
-  void save(Sts3215Servo &servo);
-  // void reset(Sts3215Servo &servo);
-  void clean(void);
-
   void readCurrent(Sts3215Servo &servo);
   void writeDesired(Sts3215Servo &servo);
   void writeRunMode(Sts3215Servo &servo);
@@ -43,10 +38,6 @@ private:
   bool initialize(void);
   void create_multi_packet();
   void create_single_packet();
-  uint8_t calc_sum(uint8_t* data, uint8_t length);
-  bool read_port(uint8_t* data, uint8_t length, uint8_t timeout_msec=30);
-  bool write_port(uint8_t* data, uint8_t length);
-  void wait(uint16_t msec);
 
   dynamixel::PortHandler *portHandler_;
   dynamixel::PacketHandler *packetHandler_;

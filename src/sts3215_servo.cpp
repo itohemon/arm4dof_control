@@ -249,17 +249,6 @@ int16_t Sts3215Servo::get_current_vel( void )
 }
 
 /**
- * STS3215サーボ 現在トルク取得処理
- * @brief 格納されている現在トルクを返却する
- * @param なし
- * @return 位置値[1000倍Nm]
- */
-// int16_t Sts3215Servo::get_current_trq( void )
-// {
-//     return current_trq_;
-// }
-
-/**
  * STS3215サーボ 目標値取得処理
  * @brief 格納されている目標値を返却する
  * @param なし

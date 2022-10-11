@@ -109,8 +109,8 @@ void Sts3215Hardware::update( void )
   // Read Current
   for(std::vector<Sts3215Joint>::iterator ritr=joint_.begin() ; ritr!=joint_.end() ; ++ritr){
     port_.readCurrent(*ritr);
-    ritr->set_pos( DEG2RAD(ritr->get_current_pos() / 100.0) );
-    ritr->set_vel( DEG2RAD(ritr->get_current_vel() / 100.0) );
+    ritr->set_pos( DEG2RAD(ritr->get_current_pos() * 360.0 / 4096.0) );
+    ritr->set_vel( DEG2RAD(ritr->get_current_vel() * 360.0 / 4096.0) );
     // ritr->set_eff( ritr->get_current_trq() / 1000.0 );
   }
 
@@ -126,7 +126,7 @@ void Sts3215Hardware::update( void )
     switch( witr->get_type() ){
       case enSts3215JointType_Position:
       case enSts3215JointType_Velocity:
-        desired = static_cast<int16_t>(RAD2DEG(witr->get_cmd()) * 100.0); // rad->deg
+        desired = static_cast<int16_t>(RAD2DEG(witr->get_cmd()) * 4096.0 / 360.0); // rad->deg
         break;
       // case enSts3215JointType_Effort:
       //   desired = static_cast<int16_t>(witr->get_cmd() * 1000.0);// Nm->mNm
@@ -172,14 +172,3 @@ void Sts3215Hardware::set_torque(bool torque)
   }
 }
 
-/**
- * STS3215ハードウェア リセット処理
- * @brief 登録されている全てのジョイントをリセットする
- * @param なし
- */
-// void Sts3215Hardware::reset(void)
-// {
-//   for(std::vector<Sts3215Joint>::iterator itr=joint_.begin() ; itr!=joint_.end() ; ++itr){
-//     port_.reset(*itr);
-//   }
-// }

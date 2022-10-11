@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
   // メインループ処理
   ros::Rate rate(UPDATE_RATE_HZ);
   while (ros::ok()) {
-    //sts3215.update();   // 更新処理
+    sts3215.update();   // 更新処理
     rate.sleep();
   }
   
