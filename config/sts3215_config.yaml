@@ -6,8 +6,9 @@ sts3215_config:
     - joint2
     - joint3
     - joint4
-  joint1: {id: 1, type: "Position", reverse: false }
-  joint2: {id: 2, type: "Position", reverse: false }
-  joint3: {id: 3, type: "Position", reverse: false }
-  joint4: {id: 4, type: "Position", reverse: false }
-  
+    - finger_joint
+  joint1: {id: 1, type: "Position", reverse: false, pos_offset: 2048 }
+  joint2: {id: 2, type: "Position", reverse: false, pos_offset: 2048 }
+  joint3: {id: 3, type: "Position", reverse: false, pos_offset: 2048 }
+  joint4: {id: 4, type: "Position", reverse: false, pos_offset: 2048 }
+  finger_joint: {id: 5, type: "Position", reverse: false, pos_offset: 2048 }

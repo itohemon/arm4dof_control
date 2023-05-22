@@ -11,6 +11,7 @@
 #define     KEY_PARAM_ID        ("/id")
 #define     KEY_PARAM_TYPE      ("/type")
 #define     KEY_PARAM_REVERSE   ("/reverse")
+#define     KEY_PARAM_POS_OFFSET   ("/pos_offset")
 
 #define     TYPE_POSITION       ("Position")
 #define     TYPE_VELOCITY       ("Velocity")
@@ -34,6 +35,7 @@ typedef struct {
     uint8_t                  id_;
     enSts3215JointConfigType type_;
     bool                     reverse_;
+  int16_t                    pos_offset_;
 } stSts3215JointConfig;
 
 /**

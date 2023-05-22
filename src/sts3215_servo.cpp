@@ -136,7 +136,7 @@ void Sts3215Servo::set_cmd_error(EN_COMMAND_ERRORS error)
 /**
  * STS3215サーボ 現在位置設定処理
  * @brief STS3215サーボから読みだした現在位置を格納する
- * @param value：位置値[100倍deg]
+ * @param value：位置値[step]
  */
 void Sts3215Servo::set_current_pos( int16_t value )
 {
@@ -147,24 +147,13 @@ void Sts3215Servo::set_current_pos( int16_t value )
 /**
  * STS3215サーボ 現在速度設定処理
  * @brief STS3215サーボから読みだした現在速度を格納する
- * @param value：速度値[100倍deg/sec]
+ * @param value：速度値[step/sec]
  */
 void Sts3215Servo::set_current_vel( int16_t value )
 {
   current_vel_ = value;
   return;
 }
-
-/**
- * STS3215サーボ 現在トルク設定処理
- * @brief STS3215サーボから読みだした現在トルクを格納する
- * @param value：トルク値[1000倍Nm]
- */
-// void Sts3215Servo::set_current_trq( int16_t value )
-// {
-//     current_trq_ = value;
-//     return;
-// }
 
 /**
  * STS3215サーボ 現在値パース処理
@@ -207,10 +196,6 @@ void Sts3215Servo::set_desired( int16_t value )
     max = MAX_VELOCITY;
     min = MIN_VELOCITY;
     break;
-    // case enOptions_ControlTorque:   // トルク指令の場合
-    //     max = MAX_TORQUE;
-    //     min = MIN_TORQUE;
-    //     break;
   default:                        // その他の場合
     max = MAX_UNDEFINED;
     min = MIN_UNDEFINED;
@@ -230,7 +215,7 @@ void Sts3215Servo::set_desired( int16_t value )
  * STS3215サーボ 現在位置取得処理
  * @brief 格納されている現在位置を返却する
  * @param なし
- * @return 位置値[100倍deg]
+ * @return 位置値[step]
  */
 int16_t Sts3215Servo::get_current_pos( void )
 {
@@ -241,7 +226,7 @@ int16_t Sts3215Servo::get_current_pos( void )
  * STS3215サーボ 現在速度取得処理
  * @brief 格納されている現在速度を返却する
  * @param なし
- * @return 位置値[100倍deg/sec]
+ * @return 位置値[step/sec]
  */
 int16_t Sts3215Servo::get_current_vel( void )
 {

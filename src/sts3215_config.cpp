@@ -159,10 +159,12 @@ bool Sts3215Config::load_param( void )
     std::string key_param_id        = (key_joint + KEY_PARAM_ID);
     std::string key_param_type      = (key_joint + KEY_PARAM_TYPE);
     std::string key_param_reverse   = (key_joint + KEY_PARAM_REVERSE);
+    std::string key_param_pos_offset = (key_joint + KEY_PARAM_POS_OFFSET);
     int load_id = 0;
     std::string load_type = "";
     bool load_reverse = false;
     bool load_result = true;
+    int load_pos_offset = 0;
     if( !nh_.getParam( key_param_id, load_id ) ){
       ROS_ERROR("Undefined key %s", key_param_id.c_str());
       load_result = false;
@@ -173,6 +175,10 @@ bool Sts3215Config::load_param( void )
     }
     if( !nh_.getParam( key_param_reverse, load_reverse ) ){
       ROS_ERROR("Undefined key %s", key_param_reverse.c_str());
+      load_result = false;
+    }
+    if( !nh_.getParam( key_param_pos_offset, load_pos_offset ) ){
+      ROS_ERROR("Undefined key %s", key_param_pos_offset.c_str());
       load_result = false;
     }
     if( load_result ){
@@ -189,6 +195,7 @@ bool Sts3215Config::load_param( void )
         break;
       }
       itr->reverse_ = load_reverse;
+      itr->pos_offset_ = load_pos_offset;
     }else{
       result = false;
       break;

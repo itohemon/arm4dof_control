@@ -10,6 +10,7 @@ pos_traj_control:
     - joint2
     - joint3
     - joint4
+    - finger_joint
   allow_partial_joints_goal: true
 
 pos_controller:
@@ -20,6 +21,7 @@ pos_controller:
     - joint2
     - joint3
     - joint4
+    - finger_joint
 
 vel_traj_control:
   type: "velocity_controllers/JointTrajectoryController"
@@ -29,11 +31,13 @@ vel_traj_control:
     - joint2
     - joint3
     - joint4
+    - finger_joint
   gains:
     joint1: {p: 100,  d: 1, i: 1, i_clamp: 1}
     joint2: {p: 100,  d: 1, i: 1, i_clamp: 1}
     joint3: {p: 100,  d: 1, i: 1, i_clamp: 1}
     joint4: {p: 100,  d: 1, i: 1, i_clamp: 1}
+    finger_joint: {p: 100,  d: 1, i: 1, i_clamp: 1}
   allow_partial_joints_goal: true
 
 eff_traj_control:
@@ -44,9 +48,11 @@ eff_traj_control:
     - joint2
     - joint3
     - joint4
+    - finger_joint
   gains:
     joint1: {p: 5,  d: 0, i: 1, i_clamp: 1}
     joint2: {p: 5,  d: 0, i: 1, i_clamp: 1}
     joint3: {p: 5,  d: 0, i: 1, i_clamp: 1}
     joint4: {p: 5,  d: 0, i: 1, i_clamp: 1}
+    finger_joint: {p: 5,  d: 0, i: 1, i_clamp: 1}
   allow_partial_joints_goal: true

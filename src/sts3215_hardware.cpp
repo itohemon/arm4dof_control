@@ -43,10 +43,11 @@ bool Sts3215Hardware::is_init(void)
  * @param type：ジョイント種別
  * @param name：ジョイント名称
  * @param reverse：回転方向の反転設定
+ * @param pos_offset：positionのオフセット量
  * @return 登録OK(true)
  * @return 登録NG(false)
  */
-bool Sts3215Hardware::regist_joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse )
+bool Sts3215Hardware::regist_joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse, int16_t pos_offset )
 {
   bool result = true;
 
@@ -56,7 +57,7 @@ bool Sts3215Hardware::regist_joint( uint8_t id, enSts3215JointType type, std::st
     }
   }
   if( result ){
-    joint_.push_back( Sts3215Joint( id, type, name, reverse ) );
+    joint_.push_back( Sts3215Joint( id, type, name, reverse, pos_offset ) );
     std::vector<Sts3215Joint>::iterator joint_itr = (joint_.end()-1); // 今登録したデータ
 
     joint_itr->set_pos( 0.0 );
@@ -109,7 +110,7 @@ void Sts3215Hardware::update( void )
   // Read Current
   for(std::vector<Sts3215Joint>::iterator ritr=joint_.begin() ; ritr!=joint_.end() ; ++ritr){
     port_.readCurrent(*ritr);
-    ritr->set_pos( DEG2RAD(ritr->get_current_pos() * 360.0 / 4096.0) );
+    ritr->set_pos( DEG2RAD((ritr->get_current_pos() - ritr->get_pos_offset()) * 360.0 / 4096.0) );
     ritr->set_vel( DEG2RAD(ritr->get_current_vel() * 360.0 / 4096.0) );
     // ritr->set_eff( ritr->get_current_trq() / 1000.0 );
   }
@@ -126,13 +127,13 @@ void Sts3215Hardware::update( void )
     switch( witr->get_type() ){
       case enSts3215JointType_Position:
       case enSts3215JointType_Velocity:
-        desired = static_cast<int16_t>(RAD2DEG(witr->get_cmd()) * 4096.0 / 360.0); // rad->deg
+        desired = static_cast<int16_t>(RAD2DEG(witr->get_cmd()) * 4096.0 / 360.0);
         break;
       // case enSts3215JointType_Effort:
       //   desired = static_cast<int16_t>(witr->get_cmd() * 1000.0);// Nm->mNm
       //   break;
     }
-    witr->set_desired( desired );
+    witr->set_desired( desired + witr->get_pos_offset());
     port_.writeDesired(*witr);
   }
   return;

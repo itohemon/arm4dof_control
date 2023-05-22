@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
     enSts3215JointType  reg_type;
     std::string     reg_name;
     bool            reg_reverse;
+    int16_t         reg_pos_offset;
     reg_id = itr->id_;
     switch( itr->type_ ){
       case enSts3215JointConfigType_Velocity:
@@ -57,7 +58,8 @@ int main(int argc, char* argv[])
     }
     reg_name = itr->name_;
     reg_reverse= itr->reverse_;
-    sts3215.regist_joint(reg_id,reg_type,reg_name,reg_reverse); // 登録
+    reg_pos_offset = itr->pos_offset_;
+    sts3215.regist_joint(reg_id, reg_type, reg_name, reg_reverse, reg_pos_offset); // 登録
   }
   sts3215.regist_interface();
   // sts3215.reset();
@@ -69,6 +71,8 @@ int main(int argc, char* argv[])
   ros::AsyncSpinner spinner(4);
   spinner.start();
   
+  ros::Duration(1).sleep();
+
   // メインループ処理
   ros::Rate rate(UPDATE_RATE_HZ);
   while (ros::ok()) {

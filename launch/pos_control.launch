@@ -18,7 +18,7 @@
               pos_traj_control"/>
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" respawn="false"/>
 
-    <rosparam file="$(find arm4dof_control)/config/gazebo_ros_control.yaml" command="load" if="$(arg use_gazebo)" />
+    <rosparam file="$(find arm4dof_control)/config/control.yaml" command="load" if="$(arg use_gazebo)" />
     <node name="arm4dof_control" pkg="arm4dof_control" type="arm4dof_control" output="screen" respawn="false" unless="$(arg use_gazebo)" />
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find arm4dof_control)/config/display.rviz" if="$(arg use_rviz)"/>

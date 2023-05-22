@@ -21,7 +21,7 @@ typedef enum {
 class Sts3215Joint : public Sts3215Servo
 {
 public:
-  Sts3215Joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse );
+  Sts3215Joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse, int16_t pos_offset );
   ~Sts3215Joint();
   static EN_OPTIONS conv_type( enSts3215JointType type );
 
@@ -35,6 +35,7 @@ public:
   double get_vel(void);
   double get_eff(void);
   double get_cmd(void);
+  int16_t get_pos_offset(void);
   double* get_pos_addr(void);
   double* get_vel_addr(void);
   double* get_eff_addr(void);
@@ -48,6 +49,7 @@ private:
   double          vel_;   // [rad/sec]
   double          eff_;   // [Nm]
   double          cmd_;   // HardwareInterface command data
+  int16_t         pos_offset_;  // [steps]
 };
 
 #endif  // STS3215_JOINT_HPP_

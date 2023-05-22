@@ -22,7 +22,7 @@ public:
   Sts3215Hardware( std::string dev_name, uint32_t baudrate, ros::NodeHandle handle );
   ~Sts3215Hardware();
   bool is_init(void);
-  bool regist_joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse );
+  bool regist_joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse, int16_t pos_offset );
   void regist_interface(void);
   void update(void);
   void torque_on(void);

@@ -9,8 +9,9 @@
  * @param type：ジョイントタイプ
  * @param name：ジョイント名
  * @param reverse：回転方向の反転設定
+ * @param pos_offset：positionのオフセット量
  */
-Sts3215Joint::Sts3215Joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse )
+Sts3215Joint::Sts3215Joint( uint8_t id, enSts3215JointType type, std::string name, bool reverse, int16_t pos_offset )
   : Sts3215Servo( id, conv_type(type) )
 {
   type_   = type;
@@ -23,6 +24,7 @@ Sts3215Joint::Sts3215Joint( uint8_t id, enSts3215JointType type, std::string nam
   vel_    = 0.0;
   eff_    = 0.0;
   cmd_    = 0.0;
+  pos_offset_ = pos_offset;
 }
 
 /**
@@ -155,6 +157,15 @@ double Sts3215Joint::get_eff(void)
 double Sts3215Joint::get_cmd(void)
 {
   return reverse_?-cmd_:cmd_;
+}
+
+/**
+ * STS3215ジョイント 位置オフセット値取得処理
+ * @brief 原点を何ステップめにしているかを返却する
+ */
+int16_t Sts3215Joint::get_pos_offset(void)
+{
+  return pos_offset_;
 }
 
 /**
