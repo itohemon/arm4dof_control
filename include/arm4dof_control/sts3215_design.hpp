@@ -102,14 +102,14 @@
 #define SIZE_MOVING_STATUS                 (1)
 #define SIZE_PRESENT_CURRENT               (2)
 
-#define MAX_POSITION                       (32766)
-#define MIN_POSITION                       (-32766)
+#define MAX_POSITION                       (4095)
+#define MIN_POSITION                       (0)
 #define MAX_VELOCITY                       (254)
 #define MIN_VELOCITY                       (-254)
-#define MAX_TORQUE                                  (32767)
-#define MIN_TORQUE                                  (-32768)
-#define MAX_UNDEFINED                               (32767)
-#define MIN_UNDEFINED                               (-32768)
+#define MAX_TORQUE                         (32767)
+#define MIN_TORQUE                         (-32768)
+#define MAX_UNDEFINED                      (32767)
+#define MIN_UNDEFINED                      (-32768)
 
 
 /**
